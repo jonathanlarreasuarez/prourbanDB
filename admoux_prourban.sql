@@ -242,10 +242,10 @@ CREATE TABLE `modulo` (
 --
 
 INSERT INTO `modulo` (`id`, `descripcion`, `iconclass`) VALUES
-(1, 'SEGURIDAD', NULL),
-(2, 'PAGOS', NULL),
-(3, 'RESERVA', NULL),
-(4, 'ADMINSITRACION', NULL);
+(1,'SEGURIDAD','fa fa-cogs'),
+(2,'PAGOS','fa fa-bar-chart'),
+(3,'RESERVA','fa fa-calendar'),
+(4,'ADMINSITRACION','fa fa-home');
 
 -- --------------------------------------------------------
 
@@ -256,18 +256,23 @@ INSERT INTO `modulo` (`id`, `descripcion`, `iconclass`) VALUES
 DROP TABLE IF EXISTS `opcion`;
 CREATE TABLE `opcion` (
   `id` int(11) NOT NULL,
+  `modulo_id` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  `url` varchar(70) DEFAULT NULL,
-  `modulo_id` int(11) NOT NULL
+  `url` varchar(70) DEFAULT NULL  
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `opcion`
 --
 
-INSERT INTO `opcion` (`id`, `nombre`, `url`, `modulo_id`) VALUES
-(1, 'CREAR ROL', '/rol', 1),
-(2, 'CREAR USUARIO', '/usuario', 1);
+INSERT INTO `opcion` (`id`, `modulo_id`, `nombre`, `url`) VALUES
+(1,1,'CREAR ROL','#!/rol'),
+(2,1,'ASIGNAR USUARIO','#!/usuarios'),
+(3,2,'PROVEEDORES','#!/proveedores'),
+(4,2,'CUENTAS POR PAGAR','#!/cxp'),
+(5,2,'CUENTAS POR COBRAR','#!/cxc'),
+(6,2,'FACTURACION','#!/factura'),
+(7,1,'ASIGNAR OPCION','#!/opcionrol');
 
 -- --------------------------------------------------------
 
@@ -287,8 +292,17 @@ CREATE TABLE `opcionxrol` (
 --
 
 INSERT INTO `opcionxrol` (`id`, `opcion_id`, `rol_id`) VALUES
-(1, 1, 1),
-(2, 2, 1);
+(1,1,1),
+(2,2,1),
+(8,3,1),
+(9,4,1),
+(10,5,1),
+(11,6,1),
+(12,3,3),
+(13,4,3),
+(14,5,3),
+(15,6,3),
+(16,7,1);
 
 -- --------------------------------------------------------
 
@@ -386,18 +400,19 @@ CREATE TABLE `reserva` (
 DROP TABLE IF EXISTS `rol`;
 CREATE TABLE `rol` (
   `id` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL
+  `descripcion` varchar(45) NOT NULL,
+  `estado` int(2) NOT NULL DEFAULT '1' COMMENT '1: Activo; 2:Inactivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol` (`id`, `descripcion`) VALUES
-(1, 'SISTEMAS'),
-(2, 'RESIDENTE'),
-(3, 'ADMINISTRADOR'),
-(4, 'PRESIDENTE');
+INSERT INTO `rol` (`id`, `descripcion`, `estado`) VALUES
+(1,'SISTEMAS',1),
+(2,'RESIDENTE',1),
+(3,'ADMINISTRADOR',1),
+(4,'PRESIDENTE',1);
 
 -- --------------------------------------------------------
 
