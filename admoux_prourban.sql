@@ -386,6 +386,8 @@ CREATE TABLE `reserva` (
   `id` int(11) NOT NULL,
   `fecha_solicitud` date NOT NULL,
   `fecha_reserva` date NOT NULL,
+     `desde` time DEFAULT NULL,
+  `hasta` time DEFAULT NULL,
   `estado` varchar(45) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `area_id` int(11) NOT NULL
