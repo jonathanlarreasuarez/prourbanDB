@@ -819,12 +819,15 @@ ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_usuario_persona` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`),
   ADD CONSTRAINT `fk_usuario_rol` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`);
   
-  
-  -- Eventos
+DELIMITER $$
 --
-
+-- Eventos
+--
+CREATE DEFINER=`root`@`localhost` EVENT `limpieza` ON SCHEDULE EVERY 3 HOUR STARTS '2017-09-17 15:22:20' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM  reserva where estado = 'pre-reserva'$$
 
 CREATE DEFINER=`root`@`localhost` EVENT `limpieza` ON SCHEDULE EVERY 3 HOUR STARTS '2017-09-17 15:22:20' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM  reserva where estado = 'pre-reserva'
+
+DELIMITER ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
